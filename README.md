@@ -1,1 +1,1 @@
-# eventregistration
+# Event Registration
