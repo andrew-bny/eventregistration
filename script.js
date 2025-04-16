@@ -14,25 +14,16 @@ form.addEventListener("submit", function(event) {
         return;
     }
 
-    fetch(scriptURL, {
-        method: "POST",
-        body: JSON.stringify({
-            name: name,
-            email: email,
-            number: number,
-            event: selectedEvent
-        }),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-    .then(response => {
-        document.getElementById("confirmationMessage").textContent = "Registration successful!";
-        form.reset();
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        alert("Something went wrong.");
-    });
-});
+    const url = `${scriptURL}?name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&number=${encodeURIComponent(number)}&event=${encodeURIComponent(selectedEvent)}`;
 
+    fetch(url)
+        .then(response => response.text())
+        .then(result => {
+            document.getElementById("confirmationMessage").textContent = "Registration successful!";
+            form.reset();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Something went wrong.");
+        });
+});
